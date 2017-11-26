@@ -32,9 +32,14 @@ Domain Path:  /languages
 
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
+define( 'PLUGIN_PATH', plugin_dir_path(__FILE__ ));
 
 require "debug_to_console.php";
 require "wordpress-virtual-page.php";
+
+
+
+
 
 // Name of the slug
 $NBCI_SLUG = 'info_einstellen';
@@ -56,16 +61,18 @@ $args = array(
 );
 
 
-/* Overriding the original Template */
-add_filter( 'template_include', 'override_template' );
+new WP_EX_PAGE_ON_THE_FLY($args);
 
-function my_callback( $original_template ) {
- if ( some_condition() ) {
-   return SOME_PATH . '/some-custom-file.php';
+//wp_reset_query();
+/* Overriding the original Template */
+add_filter( 'template_include',  'override_template');
+debug_to_console( "IsSlug: " . var_dump( is_page($slug) ) );
+
+function override_template( $original_template) {
+
+    if ( is_page('cfaae88737603c70355c/info_einstellen') ) {
+   return PLUGIN_PATH . '/' . 'template.php';
  } else {
    return $original_template;
  }
 }
-
-
-new WP_EX_PAGE_ON_THE_FLY($args);
