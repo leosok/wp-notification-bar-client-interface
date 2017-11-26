@@ -1,0 +1,89 @@
+/* main.css */
+
+/*This is the Toggle-Button*/
+
+main {
+	background: white;
+}
+
+.toggle label {
+	position: relative;
+	display: inline-block;
+	width: 10em;
+	height: 3.5em;
+}
+
+.toggle input {
+	display: none;
+}
+
+.toggle .slider {
+	/* Grundfläche */
+	
+	position: absolute;
+	cursor: pointer;
+	top: 1.5em;
+	left: 2em;
+	width: 4em;
+	height: 2em;
+	background-color: #c32e04;
+	/* red */
+	
+	transition: all .3s ease-in-out;
+	border-radius: 1em;
+}
+
+.toggle .slider:before {
+	/* verschiebbarer Button */
+	
+	position: absolute;
+	content: "";
+	height: 1.6em;
+	width: 1.6em;
+	left: 0.2em;
+	bottom: 0.2em;
+	background-color: white;
+	border-radius: 50%;
+	transition: all .3s ease-in-out;
+}
+
+.toggle input:checked + .slider {
+	background-color: #5a9900;
+	/* green */
+}
+
+.toggle input:focus + .slider {
+	background-color: pink;
+	box-shadow: 0 0 1px #5a9900;
+}
+
+.toggle input:checked + .slider:before {
+	-webkit-transform: translateX(1.9em);
+	/* Android 4 */
+	
+	-ms-transform: translateX(1.9em);
+	/* IE9 */
+	
+	transform: translateX(1.9em);
+}
+
+.text .slider:after {
+	/* Text vor dem FlipFlop-Schalter */
+	
+	position: absolute;
+	content: "AUS";
+	color: #c32e04;
+	font-weight: bold;
+	height: 1.6em;
+	left: -2.5em;
+	bottom: 0.2em;
+}
+
+.text input:checked + .slider:after {
+	/* Text hinter dem FlipFlop-Schalter */
+	
+	position: absolute;
+	content: "AN";
+	color: #5a9900;
+	left: 4.5em;
+}

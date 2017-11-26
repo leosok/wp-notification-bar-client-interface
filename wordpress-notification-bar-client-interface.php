@@ -43,6 +43,9 @@ require "debug_to_console.php";
 require "wordpress-virtual-page.php";
 require "settings.php";
 
+/*GLOBAL - remove later: */
+
+define( 'THE_SLUG', 'cfaae88737603c70355c/info_einstellen');
 
 
 
@@ -52,13 +55,13 @@ $NBCI_SLUG = 'info_einstellen';
 /** Creation of the Page **/
 
     /* Creating a random part for the slug: */
-    //$random_slug = bin2hex(openssl_random_pseudo_bytes(10));
-    $random_slug = 'cfaae88737603c70355c';
-    debug_to_console( 'this works yo: '.$random_slug );
+    $random_slug = bin2hex(openssl_random_pseudo_bytes(10));
+    debug_to_console( 'RandomSlug: '.$random_slug );
     
-    $slug = $random_slug . '/' . $NBCI_SLUG;
-    debug_to_console('slug: '.$slug );
-    
+    //$slug = $random_slug . '/' . $NBCI_SLUG;
+    $slug = THE_SLUG;
+
+
 $args = array(
     'slug' => $slug,
     'post_title' => 'Info einstellen',
@@ -71,12 +74,11 @@ new WP_EX_PAGE_ON_THE_FLY($args);
 //wp_reset_query();
 /* Overriding the original Template */
 add_filter( 'template_include',  'override_template');
-debug_to_console( "IsSlug: " . var_dump( is_page($slug) ) );
 
 function override_template( $original_template) {
-
-    if ( is_page('cfaae88737603c70355c/info_einstellen') ) {
-   return PLUGIN_PATH . '/' . 'template.php';
+debug_to_console( 'Function-Slug: '. THE_SLUG );
+    if ( is_page(THE_SLUG) ) {
+   return PLUGIN_PATH . '/' . 'nbci_template.php';
  } else {
    return $original_template;
  }
