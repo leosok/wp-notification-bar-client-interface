@@ -1,3 +1,4 @@
+<!-- wordpress-notification-bar-client-interface.php -->
 <?php
 /*
 Plugin Name:  Client Interface for Wordpress Notification Bar 
@@ -31,12 +32,16 @@ Domain Path:  /languages
  */
 
 
+
+
+
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 define( 'PLUGIN_PATH', plugin_dir_path(__FILE__ ));
+define( 'PLUGIN_FILE', PLUGIN_PATH . 'wordpress-notification-bar-client-interface.php');
 
 require "debug_to_console.php";
 require "wordpress-virtual-page.php";
-
+require "settings.php";
 
 
 
