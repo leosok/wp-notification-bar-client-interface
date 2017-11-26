@@ -39,12 +39,20 @@ echo "Note an ist: ".(isset($nb_options["enabled"][0]) ? 'true' : 'false')."\n";
 </head>
 
 <body>
-     <div class="toggle text">
-        <label> An-/Aus-Schalter
-            <input type="checkbox" <?= $is_note_checked?>>
-            <span class="slider"></span>
-        </label>
-    </div>
+	<div id='container'> 
+		<div class="group">   
+			<label>Info:</label>
+			<br/>   
+			<textarea type="text" class="nbci_textarea" name="nbci_msg"><?= $nb_options["msg"]; ?></textarea>
+		</div>
+		
+		<div class="toggle text">
+			<label>
+				<input type="checkbox" <?= $is_note_checked?>>
+				<span class="slider"></span>
+			</label>
+		</div>
+	</div>
 </body>
 
 </html>

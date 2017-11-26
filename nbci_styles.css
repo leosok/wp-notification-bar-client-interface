@@ -1,10 +1,30 @@
 /* main.css */
 
+body{
+	background-image: -webkit-gradient(linear, left top, left bottom, from(lightblue), to(white));
+	background-image: -webkit-linear-gradient(top, lightblue,white);
+	background-image: -moz-linear-gradient(top, lightblue,white);
+	background-image: linear-gradient(to bottom, lightblue,white);
+}
+
+#container{
+	margin: auto;
+	padding: 20px;
+
+	width: 80%;
+	min-width: 300px;
+	
+	/*-->*/background: greenyellow;
+	border-bottom-color: grey;
+	border-radius: 10px;
+	border-width: 2px;
+	
+	
+}
+
+
 /*This is the Toggle-Button*/
 
-main {
-	background: white;
-}
 
 .toggle label {
 	position: relative;
@@ -23,7 +43,7 @@ main {
 	position: absolute;
 	cursor: pointer;
 	top: 1.5em;
-	left: 2em;
+	left: 0; /*Position of the whole slider*/
 	width: 4em;
 	height: 2em;
 	background-color: #c32e04;
@@ -67,17 +87,6 @@ main {
 	transform: translateX(1.9em);
 }
 
-.text .slider:after {
-	/* Text vor dem FlipFlop-Schalter */
-	
-	position: absolute;
-	content: "AUS";
-	color: #c32e04;
-	font-weight: bold;
-	height: 1.6em;
-	left: -2.5em;
-	bottom: 0.2em;
-}
 
 .text input:checked + .slider:after {
 	/* Text hinter dem FlipFlop-Schalter */
@@ -86,4 +95,48 @@ main {
 	content: "AN";
 	color: #5a9900;
 	left: 4.5em;
+}
+
+
+.text input + .slider:after {
+	/* Text hinter dem FlipFlop-Schalter */
+	
+	position: absolute;
+	content: "AUS";
+	color: #c32e04;
+	font-weight: bold;
+	left: 4.5em;
+}
+
+
+/*This is the Input Field*/
+
+.nbci_textarea{ 
+	margin-top: 10px;
+	width: 10em;
+	/* height: 3.5em; */
+	width: 85%;
+	resize: none;
+	overflow:hidden;
+	
+	background-color: white;
+	padding: 5px;
+
+	font-family: "Arial, Helvetica, sans-serif";  
+	font-size: 1.1em;
+	color: grey;
+
+	
+	border-color: grey;
+	border-radius: 3px;
+	border-width: 1px;
+
+}
+
+#container label{
+	margin-left: 2px;
+
+	font-family: "Arial, Helvetica, sans-serif";  
+	font-size: 1.1em;
+	color: rgb(56, 56, 56);
 }
