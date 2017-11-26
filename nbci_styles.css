@@ -1,11 +1,17 @@
 /* main.css */
 
 body{
+
+	font-family: sans-serif;
+
 	background-image: -webkit-gradient(linear, left top, left bottom, from(lightblue), to(white));
 	background-image: -webkit-linear-gradient(top, lightblue,white);
 	background-image: -moz-linear-gradient(top, lightblue,white);
 	background-image: linear-gradient(to bottom, lightblue,white);
-}
+
+	
+	}
+
 
 #container{
 	margin: auto;
@@ -13,13 +19,21 @@ body{
 
 	width: 80%;
 	min-width: 300px;
-	
-	/*-->*/background: greenyellow;
-	border-bottom-color: grey;
-	border-radius: 10px;
-	border-width: 2px;
-	
-	
+
+	background-color: rgba(255, 255, 255, 0.445);
+}
+
+#msg_to_user{
+
+	margin: -20px;
+	margin-bottom: 10px;
+	width: auto;
+
+	padding: 10px;
+	font-size: 1em;
+	font-weight: bold;
+	background: rgb(255, 255, 82);
+	display: hidden;	
 }
 
 
@@ -31,6 +45,7 @@ body{
 	display: inline-block;
 	width: 10em;
 	height: 3.5em;
+	
 }
 
 .toggle input {
@@ -95,6 +110,8 @@ body{
 	content: "AN";
 	color: #5a9900;
 	left: 4.5em;
+	width: 200px;
+	top: 0.5em;
 }
 
 
@@ -106,6 +123,11 @@ body{
 	color: #c32e04;
 	font-weight: bold;
 	left: 4.5em;
+	top: 0.5em;
+}
+
+.inline{
+	display: inline-block !important;
 }
 
 
@@ -135,8 +157,35 @@ body{
 
 #container label{
 	margin-left: 2px;
-
-	font-family: "Arial, Helvetica, sans-serif";  
 	font-size: 1.1em;
 	color: rgb(56, 56, 56);
+}
+
+
+.button{
+	/* Grundfläche */
+	cursor: pointer;
+	background-color: orange;
+    border-width: 0px;
+    padding: 0.5em 0.7em;
+    border-radius: 20px;
+    color: white;
+	font-size: 1em;
+	font-weight: 600;
+
+    left: 200px;
+    position: absolute;
+    top: 1.5em;
+    height: 2em;
+}
+
+.button:hover{
+	/* Grundfläche */
+
+    background-color: rgb(255, 206, 121);
+}
+
+.button:active{
+	/* Grundfläche */
+    background-color: orangered;
 }

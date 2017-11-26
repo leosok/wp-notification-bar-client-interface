@@ -6,11 +6,26 @@
 
 <body>
      <div class="toggle text">
-        <label> An-/Aus-Schalter
-            <input type="checkbox">
-            <span class="slider"></span>
-        </label>
+        <form method="post" action="http://127.0.0.1/mamas_wp/cfaae88737603c70355c/info_einstellen/">
+            <input type="hidden" name="enabled" value="off">   
+            <label> An-/Aus-Schalter
+                <input type="checkbox" name="enabled">                
+                <span class="slider"></span>
+            </label>        
+        <button TYPE="submit" name="button">SUBMIT</button>
+        </form>    
     </div>
+
+    <form method="post" action="http://127.0.0.1/mamas_wp/cfaae88737603c70355c/info_einstellen/">
+        <select name="website_string">
+            <option value="" selected="selected"></option>
+            <option VALUE="abc"> ABC</option>
+            <option VALUE="def"> def</option>
+            <option VALUE="hij"> hij</option>
+        </select>
+        <INPUT TYPE="submit" name="submit" />
+    </form>
+
 </body>
 
 </html>
