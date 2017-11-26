@@ -1,6 +1,13 @@
 
 <?php
 
+
+function get_NB_settings(){
+
+   $options = get_option('seed_wnb_settings_1', array());
+}
+
+
 function plugin_add_settings_link( $links ) {
     
     $settings_link = '<a href="options-general.php?page=nbci_options">' . __( 'Settings' ) . '</a>';
@@ -10,7 +17,8 @@ function plugin_add_settings_link( $links ) {
     
     }
     
-debug_to_console(plugin_basename(__FILE__));
+
+
 add_filter( 'plugin_action_links_' . plugin_basename(PLUGIN_FILE), 'plugin_add_settings_link' );
 
 /* NEW PLUGINEINSTELLUNGEN NEYTTO END */
