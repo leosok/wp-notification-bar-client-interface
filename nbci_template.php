@@ -1,17 +1,15 @@
 <?php /* <!-- template.php --> */
 
-/* Localisation */
-$loc_main_header= "Einstellungen";
-$loc_toggle		= ["Aus","An"];
-$loc_save 		= "Speichern";
-$loc_saved		= "Änderungen gespeichert.";
-
-
+require_once 'localise.php';
 
 /* loading the options from database*/
 $nb_options = get_option('seed_wnb_settings_1', array());
-echo "NBOPTIONS: " ;
-var_dump( $nb_options );
+
+var_dump($nb_options); 
+
+$slug_url_suffix = 	$localisation["loc_url_suffix"];
+$ran_slug_opt 	 =	get_option('nbci_random_slug');
+$nbci_client_url = 	get_site_url(null, '/'.$ran_slug_opt.'/' . $slug_url_suffix .'/');
 
 $is_note = isset($nb_options["enabled"][0]);
 $is_note_checked = $is_note ? 'checked' : '';
@@ -19,7 +17,9 @@ $is_note_checked = $is_note ? 'checked' : '';
 function save_nb_to_db($enable, $new_msg){
 	global $nb_options;
 	global $msg_to_user;
-	global $loc_saved;
+	global $localisation;
+
+	$loc_saved = $localisation["loc_saved"];
 
 	if ($enable){
 		debug_to_console('Turned NB -- ON');
@@ -40,7 +40,7 @@ function save_nb_to_db($enable, $new_msg){
 
 	
 	//update weather we added or removed "enabled"
-	update_option('seed_wnb_settings_1',$nb_options );
+	update_option('seed_wnb_settings_1',$nb_options);
 	
 }
 
@@ -70,14 +70,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$is_note_checked = $is_enabled ? 'checked' : '';
 
 	
-	debug_to_console( "is note on?: ".(isset($nb_options["enabled"][0]) ? 'true' : 'false')."\n" );
-
-
+	debug_to_console( "Incoming Note is: ".(isset($nb_options["enabled"][0]) ? 'true' : 'false')."\n" );
 	save_nb_to_db($is_enabled, $new_msg);
 } 
 else {
 	debug_to_console('Loaded template with no post request');
+	$new_msg = $nb_options;
 }
+
 
 ?>
 
@@ -91,11 +91,11 @@ else {
 <style>
 .text input:checked + .slider:after {
 	/* Text hinter dem FlipFlop-Schalter */
-	content: "<?= $loc_toggle[1] ?>" !important;
+	content: "<?= $localisation["loc_toggle"][1] ?>" !important;
 }
 .text input + .slider:after {
 	/* Text hinter dem FlipFlop-Schalter */
-	content: "<?= $loc_toggle[0] ?>" !important;
+	content: "<?= $localisation["loc_toggle"][0] ?>" !important;
 }
 </style>
 
@@ -103,7 +103,7 @@ else {
     <link rel="stylesheet" type="text/css" href="<?= plugins_url( 'nbci_styles.css', __FILE__ ) ?>">
 </head>
 
-<body>
+<body class="nbci_body">
 
 	<div id='container'> 
 		
@@ -112,12 +112,12 @@ else {
 		<div id="msg_to_user"><?=$msg_to_user ?></div>
 		<?php endif; ?>
 	<!-- Prepare the form -->	
-		<form method="post" action="http://127.0.0.1/mamas_wp/cfaae88737603c70355c/info_einstellen/">	
-		<h1><?= $loc_main_header ?></h1>
+		<form method="post" action="<?= $nbci_client_url ?>">	
+		<h1><?= $localisation["loc_main_header"] ?></h1>
 			<div class="group">   
 				<label>Info:</label>
 				<br/>   
-				<textarea type="text" class="nbci_textarea" name="nbci_msg" rows="3" ><?= $nb_options['msg']; ?> </textarea>
+				<textarea type="text" class="nbci_textarea" name="nbci_msg" rows="3" ><?php echo $nb_options['msg']; ?> </textarea>
 			</div>
 			
 			<div class="toggle text inline">
@@ -125,7 +125,7 @@ else {
 					<input type="hidden" name="enabled" value="off">
 					<input type="checkbox" name="enabled" <?= $is_note_checked?>>
 					<span class="slider inline"></span>	
-					<button class="button inline"><?= $loc_save ?></button>			
+					<button class="button inline"><?=  $localisation["loc_save"] ?></button>			
 				</label>				
 			</div>
 		</form>

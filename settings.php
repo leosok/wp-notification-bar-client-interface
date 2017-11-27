@@ -1,20 +1,14 @@
 <?php
 
 require_once 'debug_to_console.php';
-/* function get_NB_settings(){
 
-   $options = get_option('seed_wnb_settings_1', array());
-}
- */
+//require PLUGIN_FILE;
 
-/* Fuctions for slug-creation */
+
 
 function new_random_slug(){
   return bin2hex(openssl_random_pseudo_bytes(10));
 }
-
-
-
 
 function plugin_add_settings_link( $links ) {
 /* Create a link to the Settings*/   
@@ -50,22 +44,25 @@ $hidden_field_name = 'nbci_submit_hidden';
 $data_field_name = 'nbci_random_slug';
 
 // Read in existing option value from database
-$opt_val = get_option( $opt_name );
+$ran_slug_opt = get_option( $opt_name );
+
 
 // See if the user has posted us some information
 // If they did, this hidden field will be set to 'Y'
 if( isset($_POST[ $hidden_field_name ]) && $_POST[ $hidden_field_name ] == 'Y' ) {
     // Read their posted value
-    $opt_val = $_POST[ $data_field_name ];
+    // Save the posted value in the database    
+    $ran_slug_update = new_random_slug();
+    update_option( 'nbci_random_slug',$ran_slug_update);
+  
+    $ran_slug_opt = $ran_slug_update;
 
-    // Save the posted value in the database
-    update_option( $opt_name, $opt_val );
-
+    
     // Put a "settings saved" message on the screen
 
 ?>
 
-<div class="updated"><p><strong><?php _e('settings saved.', 'menu-test' ); ?></strong></p></div>
+<div class="updated"><p><strong><?php _e('Link reset successul. Please copy the new one...', 'menu-test' ); ?></strong></p></div>
 <?php
 
 }
@@ -78,19 +75,44 @@ echo '<div class="wrap">';
 
 echo "<h2>" . __( 'Client Interface for Wordpress Notification Bar ', 'menu-test' ) . "</h2>";
 
+
 // settings form
+require 'localise.php';
+$slug_url_suffix = $localisation["loc_url_suffix"];
+$nbci_client_url = get_site_url(null, '/'.$ran_slug_opt.'/' . $slug_url_suffix);
 
 ?>
+<head>
+<script type="text/javascript">
+  function copy_text() {
+        var copyText = document.getElementById("ran_slug_link");
+        copyText.select();
+        document.execCommand("Copy");
+        alert( "Url copied! "); 
+    }
+</script>
+
+    <link rel="stylesheet" type="text/css" href="<?= plugins_url( 'nbci_styles.css', __FILE__ ) ?>">
+</head>
 
 <form name="form1" method="post" action="">
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 
-<p><?php _e("Random Slag", 'menu-test' ); ?> 
-<input type="text" name="<?php echo $data_field_name; ?>" value="<?php echo $opt_val; ?>" size="40">
+<p><b><?php _e("Please copy this URL for your users: ", 'menu-test' ); ?></b> 
+
+
+
+<div class="input-group js-zeroclipboard-container">
+        <input size="70" id="ran_slug_link" type="text" name = <?php echo $data_field_name; ?>  value="<?= $nbci_client_url?>"  class="form-control input-monospace input-sm" readonly="">
+        <div class="input-group-button">
+          <button onclick="copy_text();"  title="Copy to clipboard" class="btn btn-sm" type="button"><svg aria-hidden="true" class="octicon octicon-clippy" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M2 13h4v1H2v-1zm5-6H2v1h5V7zm2 3V8l-3 3 3 3v-2h5v-2H9zM4.5 9H2v1h2.5V9zM2 12h2.5v-1H2v1zm9 1h1v2c-.02.28-.11.52-.3.7-.19.18-.42.28-.7.3H1c-.55 0-1-.45-1-1V4c0-.55.45-1 1-1h3c0-1.11.89-2 2-2 1.11 0 2 .89 2 2h3c.55 0 1 .45 1 1v5h-1V6H1v9h10v-2zM2 5h8c0-.55-.45-1-1-1H8c-.55 0-1-.45-1-1s-.45-1-1-1-1 .45-1 1-.45 1-1 1H3c-.55 0-1 .45-1 1z"></path></svg></button>
+        </div>
+    </div>
+
 </p><hr />
 
 <p class="submit">
-<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Save Changes') ?>" />
+<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Reset') ?>" />
 </p>
 
 </form>

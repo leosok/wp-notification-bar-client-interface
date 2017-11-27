@@ -34,14 +34,12 @@ Domain Path:  /languages
 
 
 
-
 function wpbar_activate() {
     /* ACTIVATION of the Plugin - will create a random_slag */  
     // variables for the field and option names 
-        
-      echo( "Activation NEWka" );
-      update_option( 'nbci_random_slug', new_random_slug() );
-        
+      $ran_slug = new_random_slug();
+      debug_to_console( "Activation " . $ran_slug);
+      update_option( 'nbci_random_slug', $ran_slug );     
     }
     
     register_activation_hook( __FILE__, 'wpbar_activate' );
@@ -50,8 +48,7 @@ function wpbar_activate() {
         /* ACTIVATION of the Plugin - will create a random_slag */  
         // variables for the field and option names 
         
-          debug_to_console( "DEActivation HOOOOKa" );
-          echo( "DEActivation HOOOOKa" );
+          debug_to_console( "DE_activation" );         
          // update_option( $opt_name, new_random_slug() );
             
         }
@@ -60,31 +57,24 @@ function wpbar_activate() {
     
 
 
+
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 define( 'PLUGIN_PATH', plugin_dir_path(__FILE__ ));
 define( 'PLUGIN_FILE', __FILE__);
 
+
 require "debug_to_console.php";
 require "wordpress-virtual-page.php";
 require "settings.php";
+require_once 'localise.php';
 
 /*GLOBAL - remove later: */
 
-define( 'THE_SLUG', 'cfaae88737603c70355c/info_einstellen');
-
-
-
-// Name of the slug
-$NBCI_SLUG = 'info_einstellen';
+define( 'THE_SLUG', get_option('nbci_random_slug').'/'.$localisation["loc_url_suffix"]);
 
 /** Creation of the Page **/
 
-    /* Creating a random part for the slug: */
-    $random_slug = bin2hex(openssl_random_pseudo_bytes(10));
-    debug_to_console( 'RandomSlug: '.$random_slug );
-    
-    //$slug = $random_slug . '/' . $NBCI_SLUG;
-    $slug = THE_SLUG;
+$slug = THE_SLUG;
 
 
 $args = array(
@@ -103,17 +93,18 @@ add_filter( 'template_include',  'override_template');
 function override_template( $original_template) {
 debug_to_console( 'Function-Slug: '. THE_SLUG );
     if ( is_page(THE_SLUG) ) {
+        debug_to_console( '----> Template redirection! To: '. THE_SLUG );
    return PLUGIN_PATH . '/' . 'nbci_template.php';
  } else {
    return $original_template;
  }
 }
 
-
+//update_option( 'plugin_error',  '' );
 /*ERROR HANDLING */
 
 //update_option( 'plugin_error',  '' );
-
+/* 
 function tl_save_error() {
     update_option( 'plugin_error',  ob_get_contents() );
 }
@@ -124,7 +115,7 @@ add_action( 'deactivated_plugin', 'tl_save_error' );
 
 
 /* Then to display the error message: */
-echo get_option( 'plugin_error' );
+/* echo get_option( 'plugin_error' ); */
 
 /* Or you could do the following: */
 //file_put_contents( 'C:\errors' , ob_get_contents() ); // or any suspected variable
