@@ -100,6 +100,8 @@ debug_to_console( 'Function-Slug: '. THE_SLUG );
  }
 }
 
+/*********** Find Erorrs when activating Plugin ************** */
+
 //update_option( 'plugin_error',  '' );
 /*ERROR HANDLING */
 
