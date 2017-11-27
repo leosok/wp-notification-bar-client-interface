@@ -5,7 +5,7 @@ require_once 'localise.php';
 /* loading the options from database*/
 $nb_options = get_option('seed_wnb_settings_1', array());
 
-var_dump($nb_options); 
+//var_dump($nb_options); 
 
 $slug_url_suffix = 	$localisation["loc_url_suffix"];
 $ran_slug_opt 	 =	get_option('nbci_random_slug');
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
 	//$data = $sanitize_text_field( $_POST['data'] );
 	
-	var_dump( $_POST );
+	//var_dump( $_POST );
 	
 	if ($_POST['enabled'] == "on"){
 		$is_enabled = true;
