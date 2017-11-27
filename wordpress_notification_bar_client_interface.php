@@ -1,5 +1,5 @@
-<!-- wordpress-notification-bar-client-interface.php -->
-<?php
+<?php /* wordpress-notification-bar-client-interface.php */
+
 /*
 Plugin Name:  Client Interface for Wordpress Notification Bar 
 Plugin URI:   
@@ -35,9 +35,34 @@ Domain Path:  /languages
 
 
 
+function wpbar_activate() {
+    /* ACTIVATION of the Plugin - will create a random_slag */  
+    // variables for the field and option names 
+        
+      echo( "Activation NEWka" );
+      update_option( 'nbci_random_slug', new_random_slug() );
+        
+    }
+    
+    register_activation_hook( __FILE__, 'wpbar_activate' );
+
+    function wpbar_deactivate() {
+        /* ACTIVATION of the Plugin - will create a random_slag */  
+        // variables for the field and option names 
+        
+          debug_to_console( "DEActivation HOOOOKa" );
+          echo( "DEActivation HOOOOKa" );
+         // update_option( $opt_name, new_random_slug() );
+            
+        }
+
+    register_deactivation_hook( __FILE__, 'wpbar_deactivate');
+    
+
+
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 define( 'PLUGIN_PATH', plugin_dir_path(__FILE__ ));
-define( 'PLUGIN_FILE', PLUGIN_PATH . 'wordpress-notification-bar-client-interface.php');
+define( 'PLUGIN_FILE', __FILE__);
 
 require "debug_to_console.php";
 require "wordpress-virtual-page.php";
@@ -83,3 +108,26 @@ debug_to_console( 'Function-Slug: '. THE_SLUG );
    return $original_template;
  }
 }
+
+
+/*ERROR HANDLING */
+
+//update_option( 'plugin_error',  '' );
+
+function tl_save_error() {
+    update_option( 'plugin_error',  ob_get_contents() );
+}
+
+
+add_action( 'activated_plugin', 'tl_save_error' );
+add_action( 'deactivated_plugin', 'tl_save_error' );
+
+
+/* Then to display the error message: */
+echo get_option( 'plugin_error' );
+
+/* Or you could do the following: */
+//file_put_contents( 'C:\errors' , ob_get_contents() ); // or any suspected variable
+
+
+?>

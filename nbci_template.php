@@ -1,6 +1,4 @@
-<!-- template.php -->
-</br></br></br>
-<?php 
+<?php /* <!-- template.php --> */
 
 /* Localisation */
 $loc_main_header= "Einstellungen";
@@ -70,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	$new_msg = sanitize_text_field($_POST['nbci_msg']);
 	$is_note_checked = $is_enabled ? 'checked' : '';
-	
+
 	
 	debug_to_console( "is note on?: ".(isset($nb_options["enabled"][0]) ? 'true' : 'false')."\n" );
 
@@ -85,21 +83,21 @@ else {
 
 
 <!-- The Html Output -->
-
+	
+<!-- Don't display this, if we're in the admin panel -->
+<?php if (!is_page(THE_SLUG) ): ?>
+<?php endif; ?>
 <html>
-
 <style>
 .text input:checked + .slider:after {
 	/* Text hinter dem FlipFlop-Schalter */
 	content: "<?= $loc_toggle[1] ?>" !important;
-
 }
 .text input + .slider:after {
 	/* Text hinter dem FlipFlop-Schalter */
 	content: "<?= $loc_toggle[0] ?>" !important;
 }
 </style>
-
 
 <head>
     <link rel="stylesheet" type="text/css" href="<?= plugins_url( 'nbci_styles.css', __FILE__ ) ?>">
@@ -128,11 +126,10 @@ else {
 					<input type="checkbox" name="enabled" <?= $is_note_checked?>>
 					<span class="slider inline"></span>	
 					<button class="button inline"><?= $loc_save ?></button>			
-				</label>
-				
+				</label>				
 			</div>
 		</form>
 	</div>
 </body>
-
 </html>
+<?php ?>
