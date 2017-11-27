@@ -23,7 +23,7 @@ function save_nb_to_db($enable, $new_msg){
 
 	if ($enable){
 		debug_to_console('Turned NB -- ON');
-		$nb_options['enabled']=['1'];
+		$nb_options['enabled']=array('1');
 	} 
 	else { // disable nb
 		debug_to_console('Turned NB -- OFF');
